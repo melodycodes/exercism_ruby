@@ -7,26 +7,17 @@ class Robot
     @@all_names << @name
   end
 
-  def generate_name
-    # generate random first 2 chars
-    generated = (0..1).map { rand(65..90).chr }
-    # generate random 3 numbers
-    generated += (0..2).map { rand(0..9) }
-    generated = generated.join
-
-    # check if new name already used
-    if !already_exists?(generated)
-      generated
-    else
-      generate_name # generate new name
-    end
-  end
-
-  def already_exists?(new_name)
-    @@all_names.include?(new_name)
-  end
-
   def reset
     @name = generate_name
+  end
+
+  def generate_name
+    # generate random robot name
+    generated = (Array('A'..'Z').sample(2) + Array(0..9).sample(3)).join
+
+    # check if this name is already in use
+    # if so, regenerate
+    # else, return name
+    @@all_names.include?(generated) ? generate_name : generated
   end
 end
