@@ -21,27 +21,22 @@ class YearTest < Minitest::Test
   end
 
   def test_non_leap_year
-    skip
     refute Year.leap?(1997), 'No, 1997 is not a leap year'
   end
 
   def test_non_leap_even_year
-    skip
     refute Year.leap?(1998), 'No, 1998 is not a leap year'
   end
 
   def test_century
-    skip
     refute Year.leap?(1900), 'No, 1900 is not a leap year'
   end
 
   def test_fourth_century
-    skip
     assert Year.leap?(2400), 'Yes, 2400 is a leap year'
   end
 
   def test_y2k
-    skip
     assert Year.leap?(2000), 'Yes, 2000 is a leap year'
   end
 
@@ -54,7 +49,6 @@ class YearTest < Minitest::Test
   # If you are curious, read more about constants on RubyDoc:
   # http://ruby-doc.org/docs/ruby-doc-bundle/UsersGuide/rg/constants.html
   def test_bookkeeping
-    skip
     assert_equal 1, Year::VERSION
   end
 end
