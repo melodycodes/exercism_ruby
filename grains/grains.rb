@@ -4,6 +4,6 @@ class Grains
   end
 
   def self.total
-    (1..64).inject { |count, i| count += square(i) }
+    (2**64) - 1
   end
 end
