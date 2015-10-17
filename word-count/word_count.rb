@@ -2,9 +2,8 @@ class Phrase
   VERSION = 1
 
   def initialize(str = '')
-    # lowercase sentence and remove quotes
-    @sentence = str.downcase.gsub(/'([a-z]+)'/, '\1')
-    @words = @sentence.split(/[^a-z0-9']+/)
+    @sentence = str.downcase
+    @words = @sentence.scan(/\b[\w']+\b/)
   end
 
   def word_count
