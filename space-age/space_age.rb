@@ -1,6 +1,8 @@
 class SpaceAge
   attr_reader :seconds
 
+  SEC_IN_YEAR = 31_557_600.0
+
   EARTH_TO_PLANET = {
     'earth' => 1.0,
     'mercury' => 0.2408467,
@@ -14,12 +16,11 @@ class SpaceAge
 
   def initialize(s)
     @seconds = s
-    @earth_year = @seconds / 31_557_600.0
+  end
 
-    EARTH_TO_PLANET.each do |k, v|
-      self.class.send(:define_method, "on_#{k}") do
-        @earth_year / v
-      end
+  EARTH_TO_PLANET.each do |planet, earth_years|
+    define_method("on_#{planet}") do
+      (@seconds / SEC_IN_YEAR) / earth_years
     end
   end
 end
