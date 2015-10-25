@@ -1,23 +1,16 @@
-# insert_at_node and traverse_at_node methods
-# inspired by https://gist.github.com/jonaphin/2645532
 class Bst
-  attr_accessor :root
   def initialize(n)
     @root = Leaf.new(n)
   end
 
-  def insert(n)
-    new_leaf = Leaf.new(n)
-    insert_at_node(@root, new_leaf)
-  end
-
-  def insert_at_node(tree_node, new_leaf)
+  def insert(n, tree_node = @root)
+    n.is_a?(Leaf) ? new_leaf = n : new_leaf = Leaf.new(n)
     if new_leaf.data <= tree_node.data
       return tree_node.left = new_leaf if tree_node.left.nil?
-      return insert_at_node(tree_node.left, new_leaf)
+      return insert(new_leaf, tree_node.left)
     end
     return tree_node.right = new_leaf if tree_node.right.nil?
-    insert_at_node(tree_node.right, new_leaf)
+    insert(new_leaf, tree_node.right)
   end
 
   def data
@@ -32,15 +25,12 @@ class Bst
     @root.right
   end
 
-  def each(&block)
-    traverse_at_node(@root, &block)
-  end
-
-  def traverse_at_node(node, &block)
+  def each(node = @root, &block)
     return if node.nil?
-    traverse_at_node(node.left, &block)
+    each(node.left, &block)
     yield node.data if block_given?
-    traverse_at_node(node.right, &block)
+    each(node.right, &block)
+    return self if block_given?
   end
 end
 
