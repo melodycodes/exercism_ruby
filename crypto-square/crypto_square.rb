@@ -7,25 +7,25 @@ class Crypto
   end
 
   def plaintext_segments
-    rows.map(&:join)
+    plaintext_rows.map(&:join)
   end
 
   def ciphertext
-    pad_transpose_text.join
+    pad_transpose_matrix.join
   end
 
   def normalize_ciphertext
-    pad_transpose_text.join(' ')
+    pad_transpose_matrix.join(' ')
   end
 
   private
-  def rows
+  def plaintext_rows
     @normalize_plaintext.chars.each_slice(@size).to_a
   end
 
-  def pad_transpose_text
-    rsize = rows[0].size
-    rows.map do |row|
+  def pad_transpose_matrix
+    rsize = plaintext_rows[0].size
+    plaintext_rows.map do |row|
       row += (row.size != rsize) ? [''] * (rsize - row.size) : []
     end.transpose.map(&:join)
   end
