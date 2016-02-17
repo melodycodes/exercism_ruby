@@ -1,15 +1,13 @@
 class Nucleotide
-  def self.from_dna(dna_str)
-    NucleotideStr.new(dna_str)
-  end
-end
-
-class NucleotideStr
   NUCLEOTIDES = ['A','C','G','T']
 
   def initialize(s)
     raise ArgumentError if s =~ /[^#{NUCLEOTIDES.join('')}]/
-    @dna_str = s.to_s
+    @dna_str = s
+  end
+
+  def self.from_dna(dna_str)
+    new(dna_str)
   end
 
   def count(char)
